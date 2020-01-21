@@ -1,0 +1,19 @@
+name: fallstrick_mvc
+description: A starting point for Dart libraries or applications.
+version: 0.0.1
+homepage: https://github.com/Fallstrick/hosting
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+#  path: ^1.6.0
+
+
+dev_dependencies:
+  pedantic: ^1.8.0
+  test: ^1.6.0
+  fallstrick_routing:
+    path: ../fallstrick_routing
+  fallstrick_hosting:
+    path: ../fallstrick_hosting
