@@ -1,6 +1,22 @@
+import 'package:fallstrick_routing/fallstrick_routing.dart';
 import 'package:fallstrick_mvc/fallstrick_mvc.dart';
+import 'package:fallstrick_hosting/fallstrick_hosting.dart';
+import 'dart:convert';
 
-//void main() {
-//  var awesome = Awesome();
-//  print('awesome: ${awesome.isAwesome}');
-//}
+void main() {
+  createWebHostBuilder('localhost', 8080).build().run();
+  MVCReflection.doScan();
+}
+
+WebHostBuilder createWebHostBuilder(String address, int port) {
+  return WebHostBuilder().useHttpListener(address, port).configure((app) {
+    app.use(fallStrickMVC);
+  });
+}
+
+@controller
+class HelloController {
+  void helloWorld() {
+     print('helloworld')
+  }
+}

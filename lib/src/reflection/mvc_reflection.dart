@@ -2,6 +2,7 @@ import 'dart:mirrors';
 
 import 'package:fallstrick_mvc/src/controller/mvc_controller.dart';
 
+/// [MVCReflection] get annotation from Controller class
 class MVCReflection {
   static final List<MVCController> _controllers = [];
   static final List<String> _requestAnnotation = [
@@ -12,13 +13,16 @@ class MVCReflection {
     'put'
   ];
 
+  /// scan annotations then get controller annotation and route annotation
   static void doScan() {
     currentMirrorSystem().libraries.values.forEach((lib) {
       lib.declarations.values.forEach((declaration) {
         var metadataLst = declaration.metadata;
         if (metadataLst.toString().toLowerCase().contains('controller')) {
           ClassMirror mirror = declaration;
+          // ignore: omit_local_variable_types
           Map<String,Symbol>  _urlToMethod = {};
+          // ignore: omit_local_variable_types
           List<Map<String, String>> _urlList = [];
           var _controllerRequestPath = '';
           var _controllerRequestMappings = mirror.metadata
