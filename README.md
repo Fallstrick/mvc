@@ -1,22 +1,48 @@
-A library for Dart developers.
+# fallstrick_mvc
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+![language](https://woolson.gitee.io/npmer-badge/ilcr-none-none-dart-ffffff-555555-%3E=2.7.0%20%3C3.0.0-ffffff-007ec6-r-t-t.svg)
+![license](https://img.shields.io/github/license/Fallstrick/hosting)
 
 ## Usage
 
 A simple usage example:
 
 ```dart
+import 'package:fallstrick_routing/fallstrick_routing.dart';
 import 'package:fallstrick_mvc/fallstrick_mvc.dart';
+import 'package:fallstrick_hosting/fallstrick_hosting.dart';
+import 'dart:convert';
 
-main() {
-  var awesome = new Awesome();
+void main() {
+  createWebHostBuilder('localhost', 8080).build().run();
+  MVCReflection.doScan();
+}
+
+WebHostBuilder createWebHostBuilder(String address, int port) {
+  return WebHostBuilder().useHttpListener(address, port).configure((app) {
+    app.use(fallStrickMVC);
+  });
+}
+
+@RequestMapping(path: '/hello')
+@controller
+class HelloController {
+  @Get(path: '/helloword')
+  void helloWorld(HttpContext context) {
+    var map = {'code': 200, 'message': 'helloword', 'data': {}};
+    context.response
+      ..headers.contentType = ContentType.json
+      ..statusCode = 200
+      ..writeAsync(json.encode(map));
+  }
 }
 ```
+We should use this package with [fallstrick_routing][fallstrick_routing] and [fallstrick_hosting][fallstrick_hosting]
 
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/Fallstrick/mvc/issues
+[fallstrick_routing]: https://github.com/Fallstrick/routing
+[fallstrick_hosting]: https://github.com/Fallstrick/hosting

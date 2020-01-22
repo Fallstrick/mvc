@@ -1,7 +1,7 @@
 name: fallstrick_mvc
 description: A starting point for Dart libraries or applications.
 version: 0.0.1
-homepage: https://github.com/Fallstrick/hosting
+homepage: https://github.com/Fallstrick/mvc
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
