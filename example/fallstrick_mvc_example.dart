@@ -14,15 +14,9 @@ WebHostBuilder createWebHostBuilder(String address, int port) {
   });
 }
 
-@RequestMapping(path: '/hello')
 @controller
 class HelloController {
-  @Get(path: '/helloword')
-  void helloWorld(HttpContext context) {
-    var map = {'code': 200, 'message': 'helloword', 'data': {}};
-    context.response
-      ..headers.contentType = ContentType.json
-      ..statusCode = 200
-      ..writeAsync(json.encode(map));
+  void helloWorld() {
+     print('helloworld')
   }
 }

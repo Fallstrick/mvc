@@ -13,6 +13,7 @@ import 'package:fallstrick_mvc/fallstrick_mvc.dart';
 import 'package:fallstrick_hosting/fallstrick_hosting.dart';
 import 'dart:convert';
 
+
 void main() {
   createWebHostBuilder('localhost', 8080).build().run();
   MVCReflection.doScan();
@@ -24,18 +25,13 @@ WebHostBuilder createWebHostBuilder(String address, int port) {
   });
 }
 
-@RequestMapping(path: '/hello')
 @controller
 class HelloController {
-  @Get(path: '/helloword')
-  void helloWorld(HttpContext context) {
-    var map = {'code': 200, 'message': 'helloword', 'data': {}};
-    context.response
-      ..headers.contentType = ContentType.json
-      ..statusCode = 200
-      ..writeAsync(json.encode(map));
+  void helloWorld() {
+     print('helloworld')
   }
 }
+
 ```
 We should use this package with [fallstrick_routing][fallstrick_routing] and [fallstrick_hosting][fallstrick_hosting]
 
