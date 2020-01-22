@@ -15,6 +15,6 @@ WebHostBuilder createWebHostBuilder(String address, int port) {
 @controller
 class HelloController {
   void helloWorld() {
-     print('helloworld')
+     print('helloworld');
   }
 }
