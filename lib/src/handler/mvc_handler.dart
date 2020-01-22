@@ -26,18 +26,15 @@ class MVCHandler {
   void _handleController(List _requestControllers) {
     MVCController _controller = _requestControllers[0];
     var _requestUrls = _controller.getUrlList();
-    if (_requestUrls.length > 1) {
-      _duplicateRoutes();
-    } else if (_requestUrls.length == 1) {
-      var _requestUrl = _requestUrls[0];
-      var _requestMethod = _context.request.method;
-      if (_requestUrl['method'].toString().toLowerCase() ==
-          _requestMethod.toLowerCase()) {
-        _controller.invoke(
-            _context.request.url.toString(), _requestMethod, _context);
-      } else {
-        _methodNotAllowed();
-      }
+    var _method = _context.request.method;
+    var _url = _context.request.url.toString();
+    _requestUrls = _requestUrls
+        .where((url) => url['path'] == _url && url['method'] == _method)
+        .toList();
+    if (_requestUrls.isNotEmpty) {
+      _controller.invoke(_url, _method, _context);
+    } else {
+      _methodNotAllowed();
     }
   }
 

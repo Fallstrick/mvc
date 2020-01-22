@@ -21,9 +21,11 @@ class MVCReflection {
         if (metadataLst.toString().toLowerCase().contains('controller')) {
           ClassMirror mirror = declaration;
           // ignore: omit_local_variable_types
-          Map<String,Symbol>  _urlToMethod = {};
+          Map<String, Symbol> _urlToMethod = {};
           // ignore: omit_local_variable_types
           List<Map<String, String>> _urlList = [];
+          // ignore: omit_local_variable_types
+          Map<String, Map<String, String>> _urlToResponseHeaders = {};
           var _controllerRequestPath = '';
           var _controllerRequestMappings = mirror.metadata
               .where((item) =>
@@ -55,15 +57,19 @@ class MVCReflection {
                 var _requestPath = _controllerRequestPath +
                     _methodRequestMapping.reflectee.path;
                 String _requestMethod = _methodRequestMapping.reflectee.method;
+                Map<String, String> _responseHeaders =
+                    _methodRequestMapping.reflectee.responseHeaders;
                 var _url = {'path': _requestPath, 'method': _requestMethod};
                 _urlList.add(_url);
                 _urlToMethod.putIfAbsent(
                     '$_requestPath#$_requestMethod', () => symbol);
+                _urlToResponseHeaders.putIfAbsent(
+                    '$_requestPath#$_requestMethod', () => _responseHeaders);
               }
             }
           });
           var im = mirror.newInstance(Symbol.empty, []);
-          var mvcController = MVCController(im, _urlToMethod, _urlList);
+          var mvcController = MVCController(im, _urlToMethod, _urlList,_urlToResponseHeaders);
           _controllers.add(mvcController);
         }
       });
