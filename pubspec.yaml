@@ -7,7 +7,9 @@ environment:
   sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
-  fallstrick_hosting: ^0.0.2
+#  fallstrick_hosting: ^0.0.3
+  fallstrick_hosting:
+    path: ../fallstrick_hosting
 
 dev_dependencies:
   pedantic: ^1.8.0

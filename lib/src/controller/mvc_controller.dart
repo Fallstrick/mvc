@@ -27,11 +27,11 @@ class MVCController {
       this._urlToResponseHeader);
 
   ///  to call method in controller instance
-  InstanceMirror invoke(String url, String method, HttpContext context) {
+  void invoke(String url, String method, HttpContext context) {
     if (_urlToMethod.containsKey('$url#$method')) {
       var result = instanceMirror
           .invoke(_urlToMethod['$url#$method'], [context]).reflectee;
-      var contentType = io.ContentType.text;
+      var contentType;
       if (_urlToResponseHeader.containsKey('$url#$method') &&
           _urlToResponseHeader['$url#$method'] != null) {
         var _responseHeader = _urlToResponseHeader['$url#$method'];
@@ -40,8 +40,10 @@ class MVCController {
           contentType = _contentTypes[_contentType];
         }
       }
+      if (contentType!=null) {
+        context.response.headers.contentType = contentType;
+      }
       context.response
-        ..headers.contentType = contentType
         ..statusCode = HttpStatus.ok
         ..writeAsync(result);
     } else {
