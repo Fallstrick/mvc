@@ -13,11 +13,10 @@ class MVCHandler {
   /// middleware init method
   void init() {
     var _controllers = MVCReflection.getControllers();
-    _url = _context.request.url.toString();
+    _url = _context.request.url.path;
     if(_url.endsWith('/')){
-      _url=_url.substring(0,_url.length-1);
+      _url.substring(0,_url.length-1);
     }
-    _url=_url.split('?')[0];
     var _requestControllers =
     _controllers.where((controller) => _getController(controller)).toList();
     if (_requestControllers.length > 1) {

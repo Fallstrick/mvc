@@ -56,6 +56,9 @@ class MVCReflection {
                 var _methodRequestMapping = _methodRequestMappings[0];
                 var _requestPath = _controllerRequestPath +
                     _methodRequestMapping.reflectee.path;
+                if(_requestPath.endsWith('/')){
+                  _requestPath.substring(0,_requestPath.length-1);
+                }
                 String _requestMethod = _methodRequestMapping.reflectee.method;
                 Map<String, String> _responseHeaders =
                     _methodRequestMapping.reflectee.responseHeaders;
