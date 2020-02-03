@@ -56,8 +56,9 @@ class MVCReflection {
                 var _methodRequestMapping = _methodRequestMappings[0];
                 var _requestPath = _controllerRequestPath +
                     _methodRequestMapping.reflectee.path;
-                if(_requestPath.endsWith('/')){
-                  _requestPath.substring(0,_requestPath.length-1);
+                if (_requestPath.endsWith('/')) {
+                  _requestPath =
+                      _requestPath.substring(0, _requestPath.length - 1);
                 }
                 String _requestMethod = _methodRequestMapping.reflectee.method;
                 Map<String, String> _responseHeaders =
@@ -72,7 +73,8 @@ class MVCReflection {
             }
           });
           var im = mirror.newInstance(Symbol.empty, []);
-          var mvcController = MVCController(im, _urlToMethod, _urlList,_urlToResponseHeaders);
+          var mvcController =
+              MVCController(im, _urlToMethod, _urlList, _urlToResponseHeaders);
           _controllers.add(mvcController);
         }
       });

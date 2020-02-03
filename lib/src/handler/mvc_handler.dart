@@ -14,11 +14,11 @@ class MVCHandler {
   void init() {
     var _controllers = MVCReflection.getControllers();
     _url = _context.request.url.path;
-    if(_url.endsWith('/')){
-      _url.substring(0,_url.length-1);
+    if (_url.endsWith('/')) {
+      _url = _url.substring(0, _url.length - 1);
     }
     var _requestControllers =
-    _controllers.where((controller) => _getController(controller)).toList();
+        _controllers.where((controller) => _getController(controller)).toList();
     if (_requestControllers.length > 1) {
       _duplicateRoutes();
     } else if (_requestControllers.length == 1) {
@@ -46,9 +46,7 @@ class MVCHandler {
   /// jude controller which contains request url
   bool _getController(MVCController controller) {
     var _requestUrls = controller.getUrlList();
-    var urls = _requestUrls
-        .where((url) =>_url==url['path'])
-        .toList();
+    var urls = _requestUrls.where((url) => _url == url['path']).toList();
     return urls.isNotEmpty;
   }
 
@@ -64,8 +62,7 @@ class MVCHandler {
     _context.response
       ..statusCode = HttpStatus.methodNotAllowed
       ..writeAsync(
-          'Sorry! The ${_context.request.method
-              .toLowerCase()} request method is not supported');
+          'Sorry! The ${_context.request.method.toLowerCase()} request method is not supported');
   }
 
   /// response return  'duplicate routes'
